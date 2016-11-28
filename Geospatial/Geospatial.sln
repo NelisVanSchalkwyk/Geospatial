@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurement", "Measurement\Measurement.csproj", "{66513993-5311-46DA-A24D-D721572C1347}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{27FE5D89-BFA6-4CE7-88D3-73684396AF70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeospatialTests", "GeospatialTests\GeospatialTests.csproj", "{8DDFF220-2730-446A-977F-F8BE316C62B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,15 @@ Global
 		{66513993-5311-46DA-A24D-D721572C1347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66513993-5311-46DA-A24D-D721572C1347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66513993-5311-46DA-A24D-D721572C1347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DDFF220-2730-446A-977F-F8BE316C62B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDFF220-2730-446A-977F-F8BE316C62B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDFF220-2730-446A-977F-F8BE316C62B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDFF220-2730-446A-977F-F8BE316C62B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DDFF220-2730-446A-977F-F8BE316C62B9} = {27FE5D89-BFA6-4CE7-88D3-73684396AF70}
 	EndGlobalSection
 EndGlobal

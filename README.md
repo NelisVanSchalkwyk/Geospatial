@@ -9,6 +9,5 @@ This is library to assist with various geospatial concepts and associated calcul
 - [Ordnance Survey National Grid](https://en.wikipedia.org/wiki/Ordnance_Survey_National_Grid)
 
 ## License
-Copyright (c) 2016 Nelis van Schalkwyk
-
+Copyright (c) 2016 Nelis van Schalkwyk  
 Licensed under the MIT license.

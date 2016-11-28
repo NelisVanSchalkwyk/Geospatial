@@ -27,7 +27,7 @@ namespace Geospatial
         {
             get
             {
-                return this.m_Latitude;
+                return m_Latitude;
             }
             set
             {
@@ -36,7 +36,7 @@ namespace Geospatial
                     throw new ArgumentOutOfRangeException("Latitude", "Latitude must be between -90 and 90 degrees.");
                 }
 
-                this.m_Latitude = value;
+                m_Latitude = value;
             }
         }
 
@@ -47,7 +47,7 @@ namespace Geospatial
         {
             get
             {
-                return this.m_Longitude;
+                return m_Longitude;
             }
             set
             {
@@ -56,7 +56,7 @@ namespace Geospatial
                     throw new ArgumentOutOfRangeException("Longitude", "Longitude must be between -180 and 180 degrees.");
                 }
 
-                this.m_Longitude = value;
+                m_Longitude = value;
             }
         }
 
@@ -69,11 +69,11 @@ namespace Geospatial
         {
             get
             {
-                return this.m_Longitude;
+                return m_Longitude;
             }
             set
             {
-                this.Longitude = value;
+                Longitude = value;
             }
         }
 
@@ -86,11 +86,11 @@ namespace Geospatial
         {
             get
             {
-                return this.m_Latitude;
+                return m_Latitude;
             }
             set
             {
-                this.Latitude = value;
+                Latitude = value;
             }
         }
 
@@ -111,8 +111,8 @@ namespace Geospatial
         /// <param name="longitude">The longitude, in degrees.</param>
         public Coordinate(double latitude, double longitude)
         {
-            this.Latitude = latitude;
-            this.Longitude = longitude;
+            Latitude = latitude;
+            Longitude = longitude;
         }
 
         #endregion
@@ -129,9 +129,9 @@ namespace Geospatial
         /// <returns>The distance between the two coordinates, in kilometers.</returns>
         public double GetDistanceTo(Coordinate other)
         {
-            var lat1Rad = this.Latitude.ToRadians();
+            var lat1Rad = Latitude.ToRadians();
             var lat2Rad = other.Latitude.ToRadians();
-            var deltaLngRad = (other.Longitude - this.Longitude).ToRadians();
+            var deltaLngRad = (other.Longitude - Longitude).ToRadians();
 
             return Math.Acos(Math.Sin(lat1Rad) * Math.Sin(lat2Rad) +
                     Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
@@ -145,9 +145,9 @@ namespace Geospatial
         /// <returns>Initial bearing in degrees from north.</returns>
         public double GetBearingTo(Coordinate other)
         {
-            var lat1Rad = this.Latitude.ToRadians();
+            var lat1Rad = Latitude.ToRadians();
             var lat2Rad = other.Latitude.ToRadians();
-            var deltaLngRad = (other.Longitude - this.Longitude).ToRadians();
+            var deltaLngRad = (other.Longitude - Longitude).ToRadians();
 
             var y = Math.Sin(deltaLngRad) * Math.Cos(lat2Rad);
             var x = Math.Cos(lat1Rad) * Math.Sin(lat2Rad) - Math.Sin(lat1Rad) * Math.Cos(lat2Rad) * Math.Cos(deltaLngRad);
@@ -167,8 +167,8 @@ namespace Geospatial
         {
             var bearingRad = bearing.ToRadians();
             var anglurarDistanceRad = distance.Kilometers / m_EarthRadius;
-            var lat1Rad = this.Latitude.ToRadians();
-            var lng1Rad = this.Longitude.ToRadians();
+            var lat1Rad = Latitude.ToRadians();
+            var lng1Rad = Longitude.ToRadians();
 
             var lat2Rad = Math.Asin(Math.Sin(lat1Rad) * Math.Cos(bearingRad)) + Math.Cos(lat1Rad) * Math.Sin(anglurarDistanceRad) * Math.Cos(bearingRad);
             var y = Math.Sin(bearingRad) * Math.Sin(anglurarDistanceRad) * Math.Cos(lat1Rad);
@@ -189,7 +189,7 @@ namespace Geospatial
         /// <returns></returns>
         public double GetLatitudeInRadians()
         {
-            return this.Latitude.ToRadians();
+            return Latitude.ToRadians();
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Geospatial
         /// <returns></returns>
         public double GetLongitudeInRadians()
         {
-            return this.Longitude.ToRadians();
+            return Longitude.ToRadians();
         }
 
         /// <summary>
