@@ -68,5 +68,37 @@ namespace GeospatialTests
             var expected = new Distance(4439).Kilometers;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void GetBearingToTest()
+        {
+            var start = new Coordinate(-25.824906, 28.259757);
+            var end = new Coordinate(-25.864751, 28.257087);
+            var actual = Math.Round(start.GetBearingTo(end), 3);
+
+            // Expected result based upon http://www.movable-type.co.uk/scripts/latlong.html
+            var expected = 183.451;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetCoordinateAtTest()
+        {
+            var start = new Coordinate(-25.824906, 28.259757);
+            var expected = new Coordinate(-25.864751, 28.257087);
+            var bearing = start.GetBearingTo(expected);
+            var distance = new Distance(start.GetDistanceTo(expected) * 1000);
+            var actual = start.GetCoordinateAt(distance, bearing);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToDegreesMinutesSecondsTest()
+        {
+            var start = new Coordinate(-25.824906, 28.259757);
+            var actual = start.ToDegreesMinutesSeconds();
+            var expected = "25° 49' 29,6616\" S,28° 15' 35,1252\" E";
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

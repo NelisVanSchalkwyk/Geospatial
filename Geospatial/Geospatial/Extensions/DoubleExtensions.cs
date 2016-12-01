@@ -7,18 +7,12 @@ namespace Geospatial.Extensions
         /// <summary>
         /// Convert numeric degrees to radians.
         /// </summary>
-        public static double ToRadians(this double number)
-        {
-            return number * Math.PI / 180;
-        }
+        public static double ToRadians(this double number) => number * Math.PI / 180;
 
         /// <summary>
         /// Convert radians to numeric (signed) degrees.
         /// </summary>
-        public static double ToDegrees(this double number)
-        {
-            return number * 180 / Math.PI;
-        }
+        public static double ToDegrees(this double number) => number * 180 / Math.PI;
 
         public static double NormalizeDegrees(this double degrees)
         {

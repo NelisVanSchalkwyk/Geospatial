@@ -2,11 +2,12 @@
 using Geospatial.Extensions;
 using Measurement;
 using System;
-using System.Xml.Serialization;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Geospatial
 {
-    [Serializable]
+    [DataContract]
     public sealed class Coordinate : Equatable<Coordinate>
     {
         #region Fields
@@ -23,6 +24,7 @@ namespace Geospatial
         /// <summary>
         /// The latitude (Y) of the geographical point.
         /// </summary>
+        [DataMember]
         public double Latitude
         {
             get
@@ -43,6 +45,7 @@ namespace Geospatial
         /// <summary>
         /// The longitude (X) of the geographical point.
         /// </summary>
+        [DataMember]
         public double Longitude
         {
             get
@@ -64,7 +67,6 @@ namespace Geospatial
         /// The X (longitude) value of the geographical point.
         /// </summary>
         /// <value>The X.</value>
-        [XmlIgnore]
         public double X
         {
             get
@@ -81,7 +83,6 @@ namespace Geospatial
         /// The Y (latitude) value of the geographical point.
         /// </summary>
         /// <value>The Y.</value>
-        [XmlIgnore]
         public double Y
         {
             get
@@ -126,7 +127,7 @@ namespace Geospatial
         /// See http://en.wikipedia.org/wiki/Great-circle_distance for more info.
         /// </summary>
         /// <param name="coordinate">The Coordinate for the location to calculate the distance to.</param>
-        /// <returns>The distance between the two coordinates, in kilometers.</returns>
+        /// <returns>The distance between the two coordinates, in kilometers.</returns>        
         public double GetDistanceTo(Coordinate other)
         {
             var lat1Rad = Latitude.ToRadians();
@@ -183,51 +184,121 @@ namespace Geospatial
             return new Coordinate(lat2, lng2);
         }
 
+        public string ToDegreesMinutesSeconds()
+        {
+            var latDegrees = GetDegrees(Latitude);
+            var latMinutes = GetMinutes(Latitude);
+            var latSeconds = GetSeconds(Latitude);
+            var latDirection = GetDirection(Latitude);
+            var lngDegrees = GetDegrees(Longitude);
+            var lngMinutes = GetMinutes(Longitude);
+            var lngSeconds = GetSeconds(Longitude);
+            var lngDirection = GetDirection(Longitude, true);
+
+            return $"{latDegrees}° {latMinutes}' {latSeconds}\" {latDirection},{lngDegrees}° {lngMinutes}' {lngSeconds}\" {lngDirection}";
+        }
+
+        public string ToDegreesDecimalMinutes()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Formats the coordinate into the specified format.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <returns></returns>
+        public string Format(CoordinateFormat format)
+        {
+            switch (format)
+            {
+                case CoordinateFormat.DegreesMinutesSeconds:
+                    return ToDegreesMinutesSeconds();
+                case CoordinateFormat.DegreesDecimalMinutes:
+                    return ToDegreesDecimalMinutes();
+                case CoordinateFormat.DecimalDegrees:
+                default:
+                    return ToString();
+            }
+        }
+
         /// <summary>
         /// Returns the latitude in radians.
         /// </summary>
         /// <returns></returns>
-        public double GetLatitudeInRadians()
-        {
-            return Latitude.ToRadians();
-        }
+        public double GetLatitudeInRadians() => Latitude.ToRadians();
 
         /// <summary>
         /// Returns the longitude in radians.
         /// </summary>
         /// <returns></returns>
-        public double GetLongitudeInRadians()
-        {
-            return Longitude.ToRadians();
-        }
+        public double GetLongitudeInRadians() => Longitude.ToRadians();
 
         /// <summary>
         /// Provides the latitude and longitude as a readable string.
         /// </summary>
         /// <returns>Latitude,Longitude</returns>
-        public override string ToString()
+        public override string ToString() => ToString(CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Provides the latitude and longitude as a readable string with a specific number of decimal places.
+        /// </summary>
+        /// <param name="decimalPlaces">The number of decimal places.</param>
+        /// <returns>A string in the format: Latitude,Longitude</returns>
+        public string ToString(IFormatProvider provider, uint decimalPlaces = 6)
         {
-            return String.Format("{0:N6},{1:N6}", Latitude, Longitude);
+            return string.Format("{0},{1}", Latitude.ToString("N" + decimalPlaces, provider), Longitude.ToString("N" + decimalPlaces, provider));
         }
 
         /// <summary>
         /// Provides the coordinate as a readable string in the format longitude,latitude.
         /// </summary>
         /// <returns>Longitude,Latitude</returns>
-        public string ToLngLatString()
+        public string ToLngLatString(IFormatProvider provider = null)
         {
-            return String.Format("{0:N6},{1:N6}", Longitude, Latitude);
+            return string.Format(provider ?? CultureInfo.CurrentCulture, "{0},{1}", Longitude, Latitude);
         }
+
+        /// <summary>
+        /// Provides the coordinate as a readable string in the format longitude,latitude.
+        /// </summary>
+        /// <returns>Longitude,Latitude</returns>
+        public string ToLngLatString() => $"{Longitude:N6},{Latitude:N6}";
 
         /// <summary>
         /// Gets the hash code. Used to determine object equality.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return CreateHash(Latitude, Longitude);
-        }
+        public override int GetHashCode() => CreateHash(Latitude, Longitude);
 
         #endregion
+
+        public enum CoordinateFormat
+        {
+            [EnumMember]
+            DecimalDegrees,
+
+            [EnumMember]
+            DegreesMinutesSeconds,
+
+            [EnumMember]
+            DegreesDecimalMinutes
+        }
+
+        int GetDegrees(double value) => Convert.ToInt16(Math.Abs(Math.Truncate(value)));
+
+        int GetMinutes(double value) => Convert.ToInt16((Math.Abs(value) * 60) % 60);
+
+        double GetSeconds(double value) => Math.Round((Math.Abs(value) * 3600) % 60, 4);
+
+        char GetDirection(double value, bool isLongitude = false)
+        {
+            if (isLongitude)
+            {
+                return value < 0 ? 'W' : 'E';
+            }
+
+            return value < 0 ? 'S' : 'N';
+        }
     }
 }
