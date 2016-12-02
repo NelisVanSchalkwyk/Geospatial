@@ -7,7 +7,7 @@ namespace Geospatial
     public sealed class Position : Equatable<Position>
     {
         public Coordinate Coordinate { get; set; }
-        public OsGridReference OSGridReference { get; set; }
+
         public string Address { get; set; }
 
         #region Public methods

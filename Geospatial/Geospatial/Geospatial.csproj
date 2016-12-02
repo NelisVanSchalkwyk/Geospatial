@@ -50,13 +50,14 @@
     <Compile Include="Coordinate.cs" />
     <Compile Include="CoordinateList.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Formats\DegreesDecimalMinutes.cs" />
     <Compile Include="Formats\DegreesMinutesSeconds.cs" />
     <Compile Include="Geometries\Circle.cs" />
     <Compile Include="Geometries\Line.cs" />
     <Compile Include="Geometries\Polygon.cs" />
     <Compile Include="Geometries\Rectangle.cs" />
     <Compile Include="Geometries\Shape.cs" />
-    <Compile Include="OsGridReference.cs" />
+    <Compile Include="Formats\OsGridReference.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

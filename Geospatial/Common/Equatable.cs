@@ -18,7 +18,7 @@ namespace Common
 
         public bool Equals(T other)
         {
-            if ((object)other == null)
+            if (other == null)
             {
                 return false;
             }
@@ -45,7 +45,7 @@ namespace Common
         {
             if ((object)obj1 == null || (object)obj2 == null)
             {
-                return Object.Equals(obj1, obj2);
+                return Equals(obj1, obj2);
             }
 
             return obj1.Equals(obj2);

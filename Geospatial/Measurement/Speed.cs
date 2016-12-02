@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Runtime.Serialization;
 
 namespace Measurement
@@ -11,7 +12,7 @@ namespace Measurement
     /// done to assist with serialization.
     /// </remarks>
     [DataContract]
-    public sealed class Speed : Equatable<Speed>
+    public sealed class Speed : Equatable<Speed>, IComparable<Speed>
     {
         #region Fields
 
@@ -79,6 +80,28 @@ namespace Measurement
         {
             return CreateHash(KilometersPerHour);
         }
+
+        #region IComparable Implementation
+
+        public int CompareTo(Speed other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            return m_KilometersPerHour.CompareTo(other.m_KilometersPerHour);
+        }
+
+        public static bool operator >(Speed operand1, Speed operand2) => operand1.CompareTo(operand2) == 1;
+
+        public static bool operator <(Speed operand1, Speed operand2) => operand1.CompareTo(operand2) == -1;
+
+        public static bool operator >=(Speed operand1, Speed operand2) => operand1.CompareTo(operand2) >= 0;
+
+        public static bool operator <=(Speed operand1, Speed operand2) => operand1.CompareTo(operand2) <= 0;
+
+        #endregion
 
         #endregion
     }

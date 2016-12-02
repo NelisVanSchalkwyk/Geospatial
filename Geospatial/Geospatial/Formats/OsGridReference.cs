@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Geospatial.Conversions;
+using System;
 
-namespace Geospatial
+namespace Geospatial.Formats
 {
-    [Serializable]
     public sealed class OsGridReference
     {
         #region Fields
@@ -29,6 +29,19 @@ namespace Geospatial
         {
             Easting = easting;
             Northing = northing;
+        }
+
+        public OsGridReference(Coordinate latLng)
+        {
+            // Convert to OSGB36.
+            var transform = HelmertTransform.GetTransform(HelmertTransformType.WGS84toOSGB36);
+
+
+            var latRad = latLng.GetLatitudeInRadians();
+            var lngRad = latLng.GetLongitudeInRadians();
+
+            throw new NotImplementedException();
+
         }
 
         #endregion

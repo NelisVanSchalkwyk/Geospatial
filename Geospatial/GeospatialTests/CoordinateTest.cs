@@ -97,7 +97,16 @@ namespace GeospatialTests
         {
             var start = new Coordinate(-25.824906, 28.259757);
             var actual = start.ToDegreesMinutesSeconds();
-            var expected = "25° 49' 29,6616\" S,28° 15' 35,1252\" E";
+            var expected = "25° 49' 29,6616\" S, 28° 15' 35,1252\" E";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToDegreesDecimalMinutesTest()
+        {
+            var start = new Coordinate(-25.824906, 28.259757);
+            var actual = start.ToDegreesDecimalMinutes();
+            var expected = "25° 49,494360' S, 28° 15,585420' E";
             Assert.AreEqual(expected, actual);
         }
     }

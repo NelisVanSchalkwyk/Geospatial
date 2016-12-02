@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Runtime.Serialization;
 
 namespace Measurement
@@ -11,7 +12,7 @@ namespace Measurement
     /// done to assist with serialization.
     /// </remarks>
     [DataContract]
-    public sealed class Distance : Equatable<Distance>
+    public sealed class Distance : Equatable<Distance>, IComparable<Distance>
     {
         #region Fields
 
@@ -133,6 +134,28 @@ namespace Measurement
         {
             return CreateHash(Meters);
         }
+
+        #region IComparable Implementation
+
+        public int CompareTo(Distance other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            return m_Meters.CompareTo(other.m_Meters);
+        }
+
+        public static bool operator >(Distance operand1, Distance operand2) => operand1.CompareTo(operand2) == 1;
+
+        public static bool operator <(Distance operand1, Distance operand2) => operand1.CompareTo(operand2) == -1;
+
+        public static bool operator >=(Distance operand1, Distance operand2) => operand1.CompareTo(operand2) >= 0;
+
+        public static bool operator <=(Distance operand1, Distance operand2) => operand1.CompareTo(operand2) <= 0;
+
+        #endregion
 
         #endregion
     }

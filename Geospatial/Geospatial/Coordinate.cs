@@ -1,5 +1,6 @@
 ﻿using Common;
 using Geospatial.Extensions;
+using Geospatial.Formats;
 using Measurement;
 using System;
 using System.Globalization;
@@ -184,21 +185,31 @@ namespace Geospatial
             return new Coordinate(lat2, lng2);
         }
 
+        /// <summary>
+        /// Returns the coordinate in Degrees Minutes Seconds (DMS) format.
+        /// </summary>
+        /// <returns>The DMS formatted string.</returns>
         public string ToDegreesMinutesSeconds()
         {
-            var latDegrees = GetDegrees(Latitude);
-            var latMinutes = GetMinutes(Latitude);
-            var latSeconds = GetSeconds(Latitude);
-            var latDirection = GetDirection(Latitude);
-            var lngDegrees = GetDegrees(Longitude);
-            var lngMinutes = GetMinutes(Longitude);
-            var lngSeconds = GetSeconds(Longitude);
-            var lngDirection = GetDirection(Longitude, true);
+            var latDMS = new DegreesMinutesSeconds(Latitude);
+            var lngDMS = new DegreesMinutesSeconds(Longitude, true);
 
-            return $"{latDegrees}° {latMinutes}' {latSeconds}\" {latDirection},{lngDegrees}° {lngMinutes}' {lngSeconds}\" {lngDirection}";
+            return $"{latDMS}, {lngDMS}";
         }
 
+        /// <summary>
+        /// Returns the coordinate in Degrees Decimal Minutes (DDM) format.
+        /// </summary>
+        /// <returns>The DDM formatted string.</returns>
         public string ToDegreesDecimalMinutes()
+        {
+            var latDDM = new DegreesDecimalMinutes(Latitude);
+            var lngDDM = new DegreesDecimalMinutes(Longitude, true);
+
+            return $"{latDDM}, {lngDDM}";
+        }
+
+        public string ToOSGridReference()
         {
             throw new NotImplementedException();
         }
@@ -285,20 +296,5 @@ namespace Geospatial
             DegreesDecimalMinutes
         }
 
-        int GetDegrees(double value) => Convert.ToInt16(Math.Abs(Math.Truncate(value)));
-
-        int GetMinutes(double value) => Convert.ToInt16((Math.Abs(value) * 60) % 60);
-
-        double GetSeconds(double value) => Math.Round((Math.Abs(value) * 3600) % 60, 4);
-
-        char GetDirection(double value, bool isLongitude = false)
-        {
-            if (isLongitude)
-            {
-                return value < 0 ? 'W' : 'E';
-            }
-
-            return value < 0 ? 'S' : 'N';
-        }
     }
 }
