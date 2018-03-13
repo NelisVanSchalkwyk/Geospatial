@@ -7,11 +7,11 @@ namespace Geospatial.Formats
     {
         #region Fields
 
-        double m_Value;
-        double m_Degrees;
-        double m_Minutes;
-        double m_Seconds;
-        char m_Direction;
+        readonly double m_Value;
+        readonly double m_Degrees;
+        readonly double m_Minutes;
+        readonly double m_Seconds;
+        readonly char m_Direction;
 
         #endregion
 

@@ -16,10 +16,10 @@ namespace Measurement
     {
         #region Fields
 
-        double m_Meters = 0D;
-        double m_Kilometers = 0D;
-        double m_Feet = 0D;
-        double m_Miles = 0D;
+        double m_Meters;
+        double m_Kilometers;
+        double m_Feet;
+        double m_Miles;
 
         #endregion
 

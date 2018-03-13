@@ -7,16 +7,16 @@ namespace Geospatial.Formats
     {
         #region Fields
 
-        double m_Value;
-        double m_Degrees;
-        double m_Minutes;
-        char m_Direction;
+        readonly double m_Value;
+        readonly double m_Degrees;
+        readonly double m_Minutes;
+        readonly char m_Direction;
 
         #endregion
 
         #region Constructors
 
-        public DegreesDecimalMinutes(double value, bool isLongitude = false)
+        public DegreesDecimalMinutes(double value, bool isLongitude)
         {
             m_Value = value;
             m_Degrees = Math.Floor(Math.Abs(value));

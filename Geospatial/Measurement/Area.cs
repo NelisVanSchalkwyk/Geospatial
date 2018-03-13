@@ -16,10 +16,10 @@ namespace Measurement
     {
         #region Fields
 
-        double m_SquareMeter = 0D;
-        double m_SquareKilometer = 0D;
-        double m_SquareFoot = 0D;
-        double m_SquareMile = 0D;
+        double m_SquareMeter;
+        double m_SquareKilometer;
+        double m_SquareFoot;
+        double m_SquareMile;
 
         #endregion
 

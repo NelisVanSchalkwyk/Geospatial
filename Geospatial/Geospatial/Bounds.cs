@@ -39,29 +39,27 @@ namespace Geospatial
         #region Constructors
 
         public Bounds()
-            : this(new CoordinateList())
-        {
-        }
+            : this(new CoordinateList()) { }
 
         public Bounds(Coordinate southWest, Coordinate northEast)
-            : this(new CoordinateList() { southWest, northEast }) { }
+            : this(new CoordinateList { southWest, northEast }) { }
 
         public Bounds(double bottom, double left, double top, double right)
         {
-            this.Bottom = bottom;
-            this.Left = left;
-            this.Top = top;
-            this.Right = right;
+            Bottom = bottom;
+            Left = left;
+            Top = top;
+            Right = right;
         }
 
         public Bounds(CoordinateList coordinates)
         {
             if (coordinates != null && coordinates.Any())
             {
-                this.Top = coordinates.Max(p => p.Y);
-                this.Left = coordinates.Min(p => p.X);
-                this.Bottom = coordinates.Min(p => p.Y);
-                this.Right = coordinates.Max(p => p.X);
+                Top = coordinates.Max(p => p.Y);
+                Left = coordinates.Min(p => p.X);
+                Bottom = coordinates.Min(p => p.Y);
+                Right = coordinates.Max(p => p.X);
             }
         }
 
@@ -91,19 +89,19 @@ namespace Geospatial
         /// <param name="coordinate"></param>
         public void Extend(Coordinate coordinate)
         {
-            if (!this.Contains(coordinate))
+            if (!Contains(coordinate))
             {
-                var coordinates = new CoordinateList();
-                coordinates.Add(this.GetNorthEast());
-                coordinates.Add(this.GetSouthWest());
-                coordinates.Add(coordinate);
+                var coordinates = new CoordinateList
+                {
+                    GetNorthEast(),
+                    GetSouthWest(),
+                    coordinate
+                };
 
-                this.Top = coordinates.Max(p => p.Y);
-                this.Left = coordinates.Min(p => p.X);
-                this.Bottom = coordinates.Min(p => p.Y);
-                this.Right = coordinates.Max(p => p.X);
-
-                coordinates = null;
+                Top = coordinates.Max(p => p.Y);
+                Left = coordinates.Min(p => p.X);
+                Bottom = coordinates.Min(p => p.Y);
+                Right = coordinates.Max(p => p.X);
             }
         }
 
@@ -116,41 +114,29 @@ namespace Geospatial
             var sw = other.GetSouthWest();
             var ne = other.GetNorthEast();
 
-            this.Extend(sw);
-            this.Extend(ne);
+            Extend(sw);
+            Extend(ne);
         }
 
-        public override int GetHashCode()
-        {
-            return CreateHash(this.Bottom, this.Left, this.Top, this.Right);
-        }
+        public override int GetHashCode() => CreateHash(Bottom, Left, Top, Right);
 
         /// <summary>
         /// Gets the north east corner coordinate of this bounds.
         /// </summary>
         /// <returns></returns>
-        public Coordinate GetNorthEast()
-        {
-            return new Coordinate(this.Top, this.Right);
-        }
+        public Coordinate GetNorthEast() => new Coordinate(Top, Right);
 
         /// <summary>
         /// Gets the south west corner coordinate of this bounds.
         /// </summary>
         /// <returns></returns>
-        public Coordinate GetSouthWest()
-        {
-            return new Coordinate(this.Bottom, this.Left);
-        }
+        public Coordinate GetSouthWest() => new Coordinate(Bottom, Left);
 
         /// <summary>
         /// Expresses the bounds as a csv string in the format: left,top,right,bottom.
         /// </summary>
         /// <returns></returns>
-        public string ToCsvString()
-        {
-            return string.Format("{0},{1},{2},{3}", this.Left, this.Top, this.Right, this.Bottom);
-        }
+        public string ToCsvString() => $"{Left},{Top},{Right},{Bottom}";
 
         #endregion
     }

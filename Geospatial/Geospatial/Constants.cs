@@ -1,6 +1,6 @@
 ﻿namespace Geospatial
 {
-    internal sealed class Constants
+    internal static class Constants
     {
         public const double NauticalMile = 1852d;
 

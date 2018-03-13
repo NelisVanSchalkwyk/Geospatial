@@ -203,7 +203,7 @@ namespace Geospatial
         /// <returns>The DDM formatted string.</returns>
         public string ToDegreesDecimalMinutes()
         {
-            var latDDM = new DegreesDecimalMinutes(Latitude);
+            var latDDM = new DegreesDecimalMinutes(Latitude, false);
             var lngDDM = new DegreesDecimalMinutes(Longitude, true);
 
             return $"{latDDM}, {lngDDM}";
@@ -249,26 +249,20 @@ namespace Geospatial
         /// Provides the latitude and longitude as a readable string.
         /// </summary>
         /// <returns>Latitude,Longitude</returns>
-        public override string ToString() => ToString(CultureInfo.CurrentCulture);
+        public override string ToString() => ToString(CultureInfo.CurrentCulture, 6);
 
         /// <summary>
         /// Provides the latitude and longitude as a readable string with a specific number of decimal places.
         /// </summary>
         /// <param name="decimalPlaces">The number of decimal places.</param>
         /// <returns>A string in the format: Latitude,Longitude</returns>
-        public string ToString(IFormatProvider provider, uint decimalPlaces = 6)
-        {
-            return string.Format("{0},{1}", Latitude.ToString("N" + decimalPlaces, provider), Longitude.ToString("N" + decimalPlaces, provider));
-        }
+        public string ToString(IFormatProvider provider, uint decimalPlaces) => $"{Latitude.ToString("N" + decimalPlaces, provider ?? CultureInfo.CurrentCulture)},{Longitude.ToString("N" + decimalPlaces, provider ?? CultureInfo.CurrentCulture)}";
 
         /// <summary>
         /// Provides the coordinate as a readable string in the format longitude,latitude.
         /// </summary>
         /// <returns>Longitude,Latitude</returns>
-        public string ToLngLatString(IFormatProvider provider = null)
-        {
-            return string.Format(provider ?? CultureInfo.CurrentCulture, "{0},{1}", Longitude, Latitude);
-        }
+        public string ToLngLatString(IFormatProvider provider) => string.Format(provider ?? CultureInfo.CurrentCulture, "{0},{1}", Longitude, Latitude);
 
         /// <summary>
         /// Provides the coordinate as a readable string in the format longitude,latitude.

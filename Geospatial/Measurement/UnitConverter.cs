@@ -126,7 +126,7 @@ namespace Measurement
         /// </summary>
         /// <param name="squareMeter">The square meter area to convert.</param>
         /// <returns>The area in square kilometer.</returns>
-        public static double SquareMeterToSquareKilometer(double squareMeter) => squareMeter * Math.Pow(1 / 1000, 2);
+        public static double SquareMeterToSquareKilometer(double squareMeter) => squareMeter * Math.Pow((double)1 / 1000, 2);
 
         /// <summary>
         /// Converts square meter to square foot.

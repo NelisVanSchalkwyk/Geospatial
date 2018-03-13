@@ -16,8 +16,8 @@ namespace Measurement
     {
         #region Fields
 
-        double m_KilometersPerHour = 0D;
-        double m_MilesPerHour = 0D;
+        double m_KilometersPerHour;
+        double m_MilesPerHour;
 
         #endregion
 
