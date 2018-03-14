@@ -5,30 +5,30 @@ namespace Geospatial.Conversions
     internal class HelmertTransform
     {
         //Metres
-        internal double tx { get; private set; }
-        internal double ty { get; private set; }
-        internal double tz { get; private set; }
+        double m_Tx { get; set; }
+        double m_Ty { get; set; }
+        double m_Tz { get; set; }
 
         //Seconds
-        internal double rx { get; private set; }
-        internal double ry { get; private set; }
-        internal double rz { get; private set; }
+        double m_Rx { get; set; }
+        double m_Ry { get; set; }
+        double m_Rz { get; set; }
 
         //Parts per million
-        internal double s { get; private set; }
+        double m_S { get; set; }
 
-        internal CoordinateSystems outputCoordinateSystem { get; private set; }
+        CoordinateSystems m_OutputCoordinateSystem { get; set; }
 
-        private HelmertTransform(double _tx, double _ty, double _tz, double _rx, double _ry, double _rz, double _s, CoordinateSystems _outputCoordinateSystem)
+        private HelmertTransform(double tx, double ty, double tz, double rx, double ry, double rz, double s, CoordinateSystems outputCoordinateSystem)
         {
-            tx = _tx;
-            ty = _ty;
-            tz = _tz;
-            rx = _rx;
-            ry = _ry;
-            rz = _rz;
-            s = _s;
-            outputCoordinateSystem = _outputCoordinateSystem;
+            m_Tx = tx;
+            m_Ty = ty;
+            m_Tz = tz;
+            m_Rx = rx;
+            m_Ry = ry;
+            m_Rz = rz;
+            m_S = s;
+            m_OutputCoordinateSystem = outputCoordinateSystem;
         }
 
         public static HelmertTransform GetTransform(HelmertTransformType type)

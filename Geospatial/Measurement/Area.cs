@@ -129,6 +129,16 @@ namespace Measurement
 
         #region Public Methods
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
+        }
+
         public override int GetHashCode()
         {
             return CreateHash(SquareMeter);
@@ -145,6 +155,10 @@ namespace Measurement
 
             return m_SquareMeter.CompareTo(other.m_SquareMeter);
         }
+
+        public static bool operator ==(Area operand1, Area operand2) => operand1.Equals(operand2);
+
+        public static bool operator !=(Area operand1, Area operand2) => !operand1.Equals(operand2);
 
         public static bool operator >(Area operand1, Area operand2) => operand1.CompareTo(operand2) == 1;
 

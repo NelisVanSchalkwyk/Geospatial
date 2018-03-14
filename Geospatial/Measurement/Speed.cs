@@ -76,9 +76,16 @@ namespace Measurement
 
         #region Public Methods
 
-        public override int GetHashCode()
+        public override int GetHashCode() => CreateHash(KilometersPerHour);
+
+        public override bool Equals(object obj)
         {
-            return CreateHash(KilometersPerHour);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
         }
 
         #region IComparable Implementation
@@ -92,6 +99,10 @@ namespace Measurement
 
             return m_KilometersPerHour.CompareTo(other.m_KilometersPerHour);
         }
+
+        public static bool operator ==(Speed operand1, Speed operand2) => operand1.Equals(operand2);
+
+        public static bool operator !=(Speed operand1, Speed operand2) => !operand1.Equals(operand2);
 
         public static bool operator >(Speed operand1, Speed operand2) => operand1.CompareTo(operand2) == 1;
 

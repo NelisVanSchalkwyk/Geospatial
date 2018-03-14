@@ -12,10 +12,17 @@ namespace Geospatial
 
         #region Public methods
 
-        public override int GetHashCode()
+        public override bool Equals(object obj)
         {
-            return CreateHash(Coordinate);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
         }
+
+        public override int GetHashCode() => CreateHash(Coordinate);
 
         #endregion
     }

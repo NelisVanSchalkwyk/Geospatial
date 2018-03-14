@@ -217,11 +217,11 @@ namespace Geospatial
         /// <summary>
         /// Formats the coordinate into the specified format.
         /// </summary>
-        /// <param name="format">The format.</param>
+        /// <param name="coordinateFormat">The format.</param>
         /// <returns></returns>
-        public string Format(CoordinateFormat format)
+        public string Format(CoordinateFormat coordinateFormat)
         {
-            switch (format)
+            switch (coordinateFormat)
             {
                 case CoordinateFormat.DegreesMinutesSeconds:
                     return ToDegreesMinutesSeconds();
@@ -269,6 +269,16 @@ namespace Geospatial
         /// </summary>
         /// <returns>Longitude,Latitude</returns>
         public string ToLngLatString() => $"{Longitude:N6},{Latitude:N6}";
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
+        }
 
         /// <summary>
         /// Gets the hash code. Used to determine object equality.

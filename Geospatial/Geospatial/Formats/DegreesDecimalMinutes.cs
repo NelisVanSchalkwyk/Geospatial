@@ -32,10 +32,17 @@ namespace Geospatial.Formats
 
         #region Equatable Implementation
 
-        public override int GetHashCode()
+        public override bool Equals(object obj)
         {
-            return CreateHash(m_Value);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
         }
+
+        public override int GetHashCode() => CreateHash(m_Value);
 
         #endregion
 
@@ -50,6 +57,10 @@ namespace Geospatial.Formats
 
             return m_Value.CompareTo(other.m_Value);
         }
+
+        public static bool operator ==(DegreesDecimalMinutes operand1, DegreesDecimalMinutes operand2) => operand1.Equals(operand2);
+
+        public static bool operator !=(DegreesDecimalMinutes operand1, DegreesDecimalMinutes operand2) => !operand1.Equals(operand2);
 
         public static bool operator >(DegreesDecimalMinutes operand1, DegreesDecimalMinutes operand2) => operand1.CompareTo(operand2) == 1;
 

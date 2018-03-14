@@ -130,6 +130,16 @@ namespace Measurement
 
         #region Public Methods
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
+        }
+
         public override int GetHashCode()
         {
             return CreateHash(Meters);
@@ -146,6 +156,10 @@ namespace Measurement
 
             return m_Meters.CompareTo(other.m_Meters);
         }
+
+        public static bool operator ==(Distance operand1, Distance operand2) => operand1.Equals(operand2);
+
+        public static bool operator !=(Distance operand1, Distance operand2) => !operand1.Equals(operand2);
 
         public static bool operator >(Distance operand1, Distance operand2) => operand1.CompareTo(operand2) == 1;
 
