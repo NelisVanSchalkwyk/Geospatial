@@ -15,13 +15,7 @@ namespace Geospatial
     {
         #region Properties
 
-        public bool IsClosed
-        {
-            get
-            {
-                return Count > 2 && this[0].Equals(this[Count - 1]);
-            }
-        }
+        public bool IsClosed => Count > 2 && this[0].Equals(this[Count - 1]);
 
         #endregion
 
@@ -52,7 +46,7 @@ namespace Geospatial
             // We need to create a list of coordinate objects from this array.
             for (int i = 0; i < points.Length; i += 2)
             {
-                this.Add(new Coordinate(Convert.ToDouble(points[i + 1]), Convert.ToDouble(points[i])));
+                Add(new Coordinate(Convert.ToDouble(points[i + 1]), Convert.ToDouble(points[i])));
             }
         }
 
@@ -64,19 +58,13 @@ namespace Geospatial
         /// Provides a comma seperated string of latitude,longitude,latitude,longitude,... values
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return this.ToCsv();
-        }
+        public override string ToString() => this.ToCsv();
 
         /// <summary>
         /// Provides a comma seperated string of longitude,latitude,longitude,latitude,... values
         /// </summary>
         /// <returns></returns>
-        public string ToLngLatString()
-        {
-            return this.ToLngLatArray().ToCsv();
-        }
+        public string ToLngLatString() => ToLngLatArray().ToCsv();
 
         /// <summary>
         /// Provides an array of type double in the format [longitude,latitude,longitude,latitude,...].
@@ -102,7 +90,7 @@ namespace Geospatial
         {
             if (!this.Any())
             {
-                throw new Exception("The list is empty.");
+                return new Coordinate(0, 0);
             }
 
             int total = this.Count;

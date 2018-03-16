@@ -118,6 +118,16 @@ namespace Geospatial
             Extend(ne);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return base.Equals(obj);
+        }
+
         public override int GetHashCode() => CreateHash(Bottom, Left, Top, Right);
 
         /// <summary>

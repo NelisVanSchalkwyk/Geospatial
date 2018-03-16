@@ -27,8 +27,8 @@ namespace Geospatial.Geometries
 
         public Circle(Coordinate center, Distance radius)
         {
-            Center = center;
-            Radius = radius;
+            Center = center ?? throw new ArgumentNullException(nameof(center));
+            Radius = radius ?? throw new ArgumentNullException(nameof(radius));
         }
 
         #endregion
@@ -57,9 +57,9 @@ namespace Geospatial.Geometries
             var MIN_LNG = -180d.ToRadians(); // -PI
             var MAX_LNG = 180d.ToRadians();  //  PI
 
-            if (distance < 0d)
+            if (distance < 0)
             {
-                throw new Exception("Distance cannot be less than 0.");
+                distance = 0;
             }
 
             // Angular distance in radians on a great circle
