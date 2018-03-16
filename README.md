@@ -11,3 +11,5 @@ This is library to assist with various geospatial concepts and associated calcul
 ## License
 Copyright (c) 2016 Nelis van Schalkwyk  
 Licensed under the MIT license.
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/701e438f217f4655b12b78c627113ee1)](https://www.codacy.com/app/NelisVanSchalkwyk/Geospatial?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NelisVanSchalkwyk/Geospatial&amp;utm_campaign=Badge_Grade)
